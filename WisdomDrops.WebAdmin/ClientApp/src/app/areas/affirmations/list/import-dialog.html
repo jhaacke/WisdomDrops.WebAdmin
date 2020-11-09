@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Excel Import</h1>
+<div mat-dialog-content>
+  <p *ngIf="!importResponse">Select the Excel spreadsheet to import.</p>
+  <div *ngIf="importResponse && importResponse.success">
+    <p>The import was successful.</p>
+    <p class="small">{{importResponse.report}}</p>
+  </div>
+  <div *ngIf="importResponse && !importResponse.success">
+    <p>The import failed.</p>
+    <p class="small">{{importResponse.errorMessage}}</p>
+  </div>
+
+  <form [formGroup]="importForm" *ngIf="!importResponse" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <mat-form-field>
+        <input type="file" name="file" (change)="onSelectedFile($event)" />
+        <!-- <input matInput [(ngModel)]="data.animal"> -->
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <button mat-raised-button color="primary" type="submit">Import</button>
+    </div>
+  </form>
+
+  <button *ngIf="importResponse" mat-raised-button color="primary" (click)="okClicked()">Ok</button>
+
+</div>
+<!-- <div mat-dialog-actions> -->
+<!--   <button mat-button (click)="onOkClick()">Ok</button> -->
+<!--   <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+<!-- </div> -->
